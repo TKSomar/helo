@@ -14,15 +14,9 @@ class Auth extends Component {
         }
     }
 
-    handleUsernameChange = (e) => {
+    changeHandler = (e) => {
         this.setState({
-            username: e.target.value
-        })
-    }
-
-    handlePasswordChange = (e) => {
-        this.setState({
-            password: e.target.value
+            [e.target.name]: e.target.value
         })
     }
 
@@ -61,11 +55,11 @@ class Auth extends Component {
                     <h1 className="auth_title">Helo</h1>
                         <div className="auth_input_box">
                             <p className="auth_input_title">Username:</p>
-                            <input type="text" name="username" id="username" value={username} onChange={e => this.handleUsernameChange(e)}></input>
+                            <input type="text" name="username" id="username" value={username} onChange={e => this.changeHandler(e)}></input>
                         </div>
                         <div className="auth_input_box">
                             <p className="auth_input_title">Password:</p>
-                            <input type="password" name="password" id="password" value={password} onChange={e => this.handlePasswordChange(e)}></input>
+                            <input type="password" name="password" id="password" value={password} onChange={e => this.changeHandler(e)}></input>
                         </div>
                         <div className="auth_button_container">
                             <button className="dark_button" onClick={e => this.login(e)}>Login</button>

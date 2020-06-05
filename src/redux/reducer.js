@@ -1,13 +1,13 @@
-import axios from 'axios';
+import axios from 'axios'
 
 const initialState = {
     user: {},
-    isLoggedin: false
+    isLoggedIn: false
 }
 
-const LOGIN_USER = 'LOGIN_USER';
-const LOGOUT_USER = 'LOGOUT_USER';
-const GET_USER = 'GET_USER';
+const LOGIN_USER = 'LOGIN_USER'
+const LOGOUT_USER = 'LOGOUT_USER'
+const GET_USER = 'GET_USER'
 
 export function loginUser(user){
     return {
@@ -24,7 +24,8 @@ export function logoutUser(){
 }
 
 export function getUser(){
-    const user = axios.get('/auth/user')
+    const user = axios.get('/api/auth/user')
+
     return {
         type: GET_USER,
         payload: user
