@@ -72,3 +72,58 @@ body {
   box-shadow: 0 1px 3px 0 rgba(0,0,0,.1), 0 1px 2px 0 rgba(0,0,0,.2);
   margin: 5px;
 }
+
+.Nav {
+  width: 100px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding-top: 20px;
+  color: #FFF;
+  background-image: linear-gradient(0deg,#ff7abe,#ff9770);
+  box-shadow: 10px 0 20px 0 rgba(0,0,0,.1), 5px 0 5px rgba(0,0,0,.2);
+}
+
+.Nav>div {
+  margin: 0 0 45px;
+}
+
+.nav_profile_container {
+  height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav_profile_pic {
+  width: 70px;
+  height: 70px;
+  background-size: cover;
+  border-radius: 50%;
+  box-shadow: 0 0 20px #333;
+}
+
+.nav_links {
+  height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home_icon {
+  width: 40px;
+}
+
+.new_icon {
+  width: 40px;
+}
+
+.logout_icon {
+  width: 40px;
+  position: absolute;
+  bottom: 20px;
+  left: 30px;
+}

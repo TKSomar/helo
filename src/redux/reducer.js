@@ -36,11 +36,11 @@ export default function (state = initialState, action){
         case LOGIN_USER:
             return {...state, user: action.payload, isLoggedIn: true}
         case LOGOUT_USER:
-            return {...state, user: action.payload}
+            return {...state ,...action.payload}
         case GET_USER + '_PENDING':
             return state
         case GET_USER + '_FULFILLED':
-            return {...state, user: action.payload, isLoggedIn: true}
+            return {...state, user: action.payload.data, isLoggedIn: true}
         case GET_USER + '_REJECTED':
             return initialState
         default:

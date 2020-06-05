@@ -3,7 +3,7 @@ import routes from './routes';
 import {connect} from 'react-redux';
 import './App.css';
 
-function App(props) {
+function App() {
   return (
     <div className="App">
       {routes}
