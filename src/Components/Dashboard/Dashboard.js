@@ -1,28 +1,90 @@
-import React, {Component} from 'react';
-import Nav from '../Nav/Nav';
+import React, { Component } from 'react';
+import axios from 'axios';
+import { Link } from 'react-router-dom';
 
-export default class Dashboard extends Component {
-    constructor(){
-        super();
+import './Dash.css';
+import searchLogo from './../../search_logo.png';
 
-        this.state = {
-            posts: [],
-            search: '',
-            userposts: true
-        }
+class Dash extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      search: '',
+      myPosts: true,
+      posts: [],
+      loading: true
     }
-
-    getAllPosts(){
-
-    }
-
-    resetSearch(){
-        
-    }
-
-    render() {
-        return (
-            <Nav />
-        )
-    }
+    this.grabPosts = this.grabPosts.bind(this);
+    this.reset = this.reset.bind(this);
+  }
+  componentDidMount() {
+    this.grabPosts();
 }
+    reset() {
+        let { myPosts } = this.state;
+        let url = '/api/posts';
+        if (myPosts) {
+            url += '?mine=true';
+        }
+        axios.get(url)
+        .then(res => {
+        this.setState({ posts: res.data, loading: false, search: '' })
+            })
+        }
+    grabPosts() {
+        let { search, myPosts } = this.state;
+        let url = '/api/posts';
+        if (myPosts && !search) {
+        url += '?mine=true';
+        } else if (!myPosts && search) {
+        url += `?search=${search}`;
+        } else if (myPosts && search) {
+        url += `?mine=true&search=${search}`;
+        }
+        axios.get(url)
+        .then(res => {
+            setTimeout(_ => this.setState({ posts: res.data, loading: false }), 500)
+        })
+    }
+    render() {
+        let posts = this.state.posts.map((el) => {
+        return <Link to={`/post/${el.post_id}`} key={el.post_id}>
+            <div className='content_box dash_post_box'>
+            <h3>{el.title}</h3>
+            <div className='author_box'>
+                <p>by {el.author_username}</p>
+                <img src={el.profile_pic} alt='author' />
+            </div>
+            </div>
+        </Link>
+        })
+    return (
+      <div className='Dash'>
+        <div className='content_box dash_filter'>
+          <div className='dash_search_box'>
+            <input value={this.state.search} onChange={e => this.setState({ search: e.target.value })} className='dash_search_bar' placeholder='Search by Title' />
+            <img onClick={this.grabPosts} className='dash_search_button' src={searchLogo} alt='search' />
+            <button onClick={this.reset} className='dark_button' id='dash_reset'>Reset</button>
+          </div>
+          <div className='dash_check_box'>
+            <p>My Posts</p>
+            <input checked={this.state.myPosts} onChange={_ => this.setState({ myPosts: !this.state.myPosts }, this.grabPosts)} type='checkbox' />
+          </div>
+        </div>
+        <div className='content_box dash_posts_container'>
+          {!this.state.loading
+            ?
+            posts
+            :
+            <div className='load_box'>
+              <div className='load_background'></div>
+              <div className='load'></div>
+            </div>
+          }
+        </div>
+      </div>
+    );
+  }
+}
+
+export default Dash;
